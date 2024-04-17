@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Sensible Heat Gain Estimation</title>
+    <title>Group 2 - Load Estimation Project</title>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta
@@ -27,6 +27,11 @@
         border-bottom: 1px solid gray !important;
       }
 
+      div,
+      table > * {
+        border-color: #ffc107 !important;
+      }
+
       sub {
         font-size: x-small;
       }
@@ -36,11 +41,12 @@
         padding-bottom: 18px !important;
       }
 
-      td[scope="row"]:not(label) {
-        color: #ffc107;
+      td[scope="row"]:not(label),
+      th {
+        color: #ffc107 !important;
       }
 
-      label {
+      label, caption {
         color: aliceblue;
       }
 
@@ -331,7 +337,7 @@
                   </tr>
 
                   <!-- NORTH DOORS -->
-                  <tr class="">
+                  <tr class="d-none">
                     <td scope="row">North Doors</td>
                     <td>
                       <input
@@ -358,7 +364,7 @@
                   </tr>
 
                   <!-- SOUTH DOORS -->
-                  <tr class="">
+                  <tr class="d-none">
                     <td scope="row">South Doors</td>
                     <td>
                       <input
@@ -412,7 +418,7 @@
                   </tr>
 
                   <!-- WEST DOORS -->
-                  <tr class="">
+                  <tr class="d-none">
                     <td scope="row">West Doors</td>
                     <td>
                       <input
@@ -439,7 +445,7 @@
                   </tr>
 
                   <!-- NORTH WINDOWS -->
-                  <tr class="">
+                  <tr class="d-none">
                     <td scope="row">North Windows</td>
                     <td>
                       <input
@@ -466,7 +472,7 @@
                   </tr>
 
                   <!-- SOUTH WINDOWS -->
-                  <tr class="">
+                  <tr class="d-none">
                     <td scope="row">South Windows</td>
                     <td>
                       <input
@@ -629,7 +635,7 @@
                     <td scope="row">Equipments</td>
                     <td id="sensibleHeatGainDueToEquipments">0</td>
                   </tr>
-                  <tr class="">
+                  <tr class="d-none">
                     <td scope="row">
                       <b>Total</b>
                     </td>
@@ -671,7 +677,7 @@
                     <td scope="row">Equipments</td>
                     <td id="latentHeatGainDueToEquipments">0</td>
                   </tr>
-                  <tr class="">
+                  <tr class="d-none">
                     <td scope="row">
                       <b>Total</b>
                     </td>
@@ -697,7 +703,7 @@
             data-bs-target="#measurementsValuesModal"
             data-target="#measurementsValuesModal"
           >
-            Set <br />
+            Edit <br />
             Values
           </button>
         </div>
@@ -720,7 +726,7 @@
         class="modal-dialog modal-dialog-centered modal-lg modal-fullscreen-md-down modal-dark"
         role="document"
       >
-        <div class="modal-content">
+        <div class="modal-content border-0">
           <div class="modal-header bg-dark text-light">
             <h5 class="modal-title" id="measurementsValuesModalTitle">
               <!-- Measurements & Values -->
@@ -828,6 +834,93 @@
                       </div>
                     </td>
                   </tr>
+                  <tr class="" id="equipmentsValues">
+                    <td scope="row">
+                      <h6 class="h6">Equipments in room</h6>
+                      <div class="row">
+                        <div class="col-md-3">
+                          <div class="mb-3">
+                            <label
+                              for="computersCount"
+                              class="form-label small mb-0"
+                              >Computers Count</label
+                            >
+                            <input
+                              type="number"
+                              class="form-control"
+                              name="computersCount"
+                              step="0.01"
+                              min="0"
+                              id="computersCount"
+                              aria-describedby=""
+                              placeholder="Length"
+                              value="0"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="mb-3">
+                            <label
+                              for="computerPower"
+                              class="form-label small mb-0"
+                              >Computer Power (W)</label
+                            >
+                            <input
+                              type="number"
+                              class="form-control"
+                              name="computerPower"
+                              step="0.01"
+                              min="0"
+                              id="computerPower"
+                              aria-describedby=""
+                              placeholder="Width"
+                              value="20"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="mb-3">
+                            <label
+                              for="printersCount"
+                              class="form-label small mb-0"
+                              >Printer Count</label
+                            >
+                            <input
+                              type="number"
+                              class="form-control"
+                              name="printersCount"
+                              step="0.01"
+                              min="0"
+                              id="printersCount"
+                              aria-describedby=""
+                              placeholder="Height"
+                              value="4"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="mb-3">
+                            <label
+                              for="printerPower"
+                              class="form-label small mb-0"
+                              >Printer Power (W)</label
+                            >
+                            <input
+                              type="number"
+                              class="form-control"
+                              name="printerPower"
+                              step="0.1"
+                              min="0"
+                              id="printerPower"
+                              aria-describedby=""
+                              placeholder="Height"
+                              value="1.5"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
                   <tr class="" id="doorValues">
                     <td scope="row">
                       <h6 class="h6">Door Measurements (m)</h6>
@@ -877,7 +970,7 @@
                     <td scope="row">
                       <h6 class="h6">No. of Doors</h6>
                       <div class="row">
-                        <div class="col-6 col-sm-3 mb-3">
+                        <div class="col-6 col-sm-3 mb-3 d-none">
                           <label
                             for="doorsCountNorth"
                             class="form-label small mb-0 pe-2 text-truncate"
@@ -895,7 +988,7 @@
                             value="2"
                           />
                         </div>
-                        <div class="col-6 col-sm-3 mb-3">
+                        <div class="col-6 col-sm-3 mb-3 d-none">
                           <label
                             for="doorsCountSouth"
                             class="form-label small mb-0 pe-2 text-truncate"
@@ -1003,7 +1096,7 @@
                     <td scope="row">
                       <h6 class="h6">No. of Windows</h6>
                       <div class="row">
-                        <div class="col-6 col-sm-3 mb-3">
+                        <div class="col-6 col-sm-3 mb-3 d-none">
                           <label
                             for="windowsCountNorth"
                             class="form-label small mb-0"
@@ -1021,7 +1114,7 @@
                             value="0"
                           />
                         </div>
-                        <div class="col-6 col-sm-3 mb-3">
+                        <div class="col-6 col-sm-3 mb-3 d-none">
                           <label
                             for="windowsCountSouth"
                             class="form-label small mb-0"

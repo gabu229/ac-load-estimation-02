@@ -47,6 +47,19 @@ const windows = {
   west: 6,
 };
 
+const equipments = [
+  {
+    item: "computers",
+    power_output: 125,
+    count: 30,
+  },
+  {
+    item: "printers",
+    power_output: 550,
+    count: 2,
+  },
+];
+
 const HEAT_COEFFICIENT = {
   roof: 2.52,
   floor: 4.5,
@@ -141,6 +154,7 @@ const SENSIBLE_HEAT_GAIN = {
     occupants: 0,
     infiltrated_air: 0,
     lighting: 0,
+    equipments: 0,
   },
   per: {
     occupant: 65,
@@ -152,6 +166,7 @@ const LATENT_HEAT_GAIN = {
     occupants: 0,
     infiltrated_air: 0,
     lighting: 0,
+    equipments: 0,
   },
   per: {
     occupant: 30,
@@ -362,6 +377,13 @@ function calculateOtherRequiredParams() {
     // 50000 * room.infiltrated_air * Math.abs(infiltrated_air.w1 - infiltrated_air.w2)
     50000 * room.infiltrated_air * 0.00715
   );
+
+  let x = 0;
+  equipments.forEach((item) => {
+    x += item.count * item.power_output;
+  });
+
+  SENSIBLE_HEAT_GAIN.due_to.equipments = x;
 }
 
 function calculateTotalSensibleHeatGain() {
@@ -412,6 +434,12 @@ function updateAllValuesFromFields() {
   room.height = parseFloat($("#roomHeight").val()) || 0;
   room.occupants = parseFloat($("#occupantsCount").val()) || 0;
   room.ac_rating = parseFloat($("#roomRating").val()) || 0;
+  
+  // Update Equipments
+  equipments[0].count = parseFloat($("#computersCount").val()) || 0;
+  equipments[0].power_output = parseFloat($("#computerPower").val()) || 0;
+  equipments[1].count = parseFloat($("#printersCount").val()) || 0;
+  equipments[1].power_output = parseFloat($("#printerPower").val()) || 0;
 
   // Update Lighting
   lighting.count = parseFloat($("#lightingCount").val()) || 0;
@@ -522,6 +550,12 @@ function updateAllValuesToFields() {
   $("#occupantsCount").val(room.occupants);
   $("#occupantSHG").val(SENSIBLE_HEAT_GAIN.per.occupant);
   $("#occupantLHG").val(LATENT_HEAT_GAIN.per.occupant);
+  
+  // Update Equipments
+  $("#computersCount").val(equipments[0].count);
+  $("#computerPower").val(equipments[0].power_output);
+  $("#printersCount").val(equipments[1].count);
+  $("#printerPower").val(equipments[1].power_output);
 
   // Update lighting values
   $("#lightingCount").val(lighting.count);
@@ -679,6 +713,12 @@ function updateValuesInDisplay() {
     SENSIBLE_HEAT_GAIN.due_to.occupants
   );
   $("#latentHeatGainDueToOccupants").html(LATENT_HEAT_GAIN.due_to.occupants);
+  
+  $("#sensibleHeatGainDueToEquipments").html(
+    SENSIBLE_HEAT_GAIN.due_to.equipments
+  );
+  $("#latentHeatGainDueToEquipments").html(LATENT_HEAT_GAIN.due_to.equipments);
+
   $("#sensibleHeatGainDueToLighting").html(SENSIBLE_HEAT_GAIN.due_to.lighting);
 
   $("#sensibleHeatGainDueToInfiltratedAir").html(
